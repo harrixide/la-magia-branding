@@ -24,6 +24,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import hero from "@/assets/hero.jpg";
+import logo from "@/assets/logo.png";
 import g1 from "@/assets/g1.jpg";
 import g2 from "@/assets/g2.jpg";
 import g3 from "@/assets/g3.jpg";
@@ -109,12 +110,21 @@ function Index() {
       {/* Nav */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-surface/85 backdrop-blur-md">
         <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 md:px-6">
-          <a href="#top" className="min-w-0">
-            <span className="font-display block truncate text-2xl leading-none tracking-widest">
-              LA <span className="text-blood">MAGIA</span>
-            </span>
-            <span className="block text-[0.6rem] uppercase tracking-[0.35em] text-muted-foreground">
-              Barbershop
+          <a href="#top" className="flex min-w-0 items-center gap-3">
+            <img
+              src={logo}
+              alt="La Magia Barbershop logo"
+              width={290}
+              height={316}
+              className="size-11 shrink-0 object-contain"
+            />
+            <span className="min-w-0">
+              <span className="font-display block truncate text-2xl leading-none tracking-widest">
+                LA <span className="text-blood">MAGIA</span>
+              </span>
+              <span className="block text-[0.6rem] uppercase tracking-[0.35em] text-muted-foreground">
+                Barbershop
+              </span>
             </span>
           </a>
           <nav className="hidden items-center gap-7 md:flex">
@@ -171,6 +181,13 @@ function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/30" />
         <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-32 md:px-6 md:pb-24">
+          <img
+            src={logo}
+            alt="La Magia Barbershop badge logo"
+            width={290}
+            height={316}
+            className="animate-rise mb-6 size-28 object-contain drop-shadow-2xl md:size-36"
+          />
           <p className="animate-rise text-xs font-semibold uppercase tracking-[0.45em] text-blood">
             Bound Brook · New Jersey
           </p>
