@@ -1,524 +1,297 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  Scissors,
-  Zap,
-  Waves,
-  Sparkles,
-  Brush,
-  Baby,
-  Wand2,
-  MapPin,
-  Phone,
-  Instagram,
-  Menu,
-  X,
-  Clock,
-} from "lucide-react";
-import { toast } from "sonner";
-
-import { Toaster } from "@/components/ui/sonner";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-
-import hero from "@/assets/hero.jpg";
-import logo from "@/assets/logo.png";
-import g1 from "@/assets/g1.jpg";
-import g2 from "@/assets/g2.jpg";
-import g3 from "@/assets/g3.jpg";
-import g4 from "@/assets/g4.jpg";
-import g5 from "@/assets/g5.jpg";
-import g6 from "@/assets/g6.jpg";
-import g7 from "@/assets/g7.jpg";
-import g8 from "@/assets/g8.jpg";
-import barber1 from "@/assets/barber1.jpg";
-import barber2 from "@/assets/barber2.jpg";
-import barber3 from "@/assets/barber3.jpg";
+import { Instagram, MapPin, Menu, Phone, Scissors, X } from "lucide-react";
 
 const PHONE = "(908) 540-2337";
 const PHONE_HREF = "tel:+19085402337";
 const ADDRESS = "5 East St, Bound Brook, New Jersey 08805";
 const MAPS = "https://maps.google.com/?q=5+East+St,+Bound+Brook,+NJ+08805";
 const IG = "https://instagram.com/lamagia.barbershop";
+const BASE = import.meta.env.BASE_URL;
+const image = (name: string) => `${BASE}images/${name}`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "La Magia Barbershop | Fresh Cuts in Bound Brook, NJ" },
+      { title: "La Magia Barbershop | Bound Brook, NJ" },
       {
         name: "description",
         content:
-          "La Magia Barbershop in Bound Brook, NJ. Skin fades, low fades, designs, beard trims, kids' cuts and braids. Appointments and walk-ins welcome. Call (908) 540-2337.",
+          "La Magia Barbershop in Bound Brook, New Jersey. Appointments and walk-ins welcome. Call (908) 540-2337.",
       },
-      { property: "og:title", content: "La Magia Barbershop | Bound Brook, NJ" },
-      {
-        property: "og:description",
-        content:
-          "Fresh Cuts. Sharp Style. La Magia. Skin fades, designs, beard trims and more — appointments and walk-ins welcome.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
 });
 
 const services = [
-  { icon: Scissors, name: "Haircuts", desc: "Classic and modern cuts tailored to your shape-up." },
-  { icon: Zap, name: "Skin Fades", desc: "Bald-clean blends with razor-sharp lines." },
-  { icon: Waves, name: "Low Fades", desc: "Subtle taper that keeps the shape all week." },
-  { icon: Sparkles, name: "Designs", desc: "Freehand hair art and custom line work." },
-  { icon: Brush, name: "Beard Trims", desc: "Shaped, lined and finished with hot towel." },
-  { icon: Baby, name: "Kids' Haircuts", desc: "Patient, friendly cuts for the little ones." },
-  { icon: Wand2, name: "Braids & Specialty", desc: "Cornrows, braids and custom styling." },
+  { name: "Haircut", detail: "Classic cuts, tapers and modern styles", price: "Ask for price" },
+  { name: "Skin Fade", detail: "Clean blend with a sharp finish", price: "Ask for price" },
+  { name: "Haircut + Beard", detail: "Full cut with beard shape-up", price: "Ask for price" },
+  { name: "Kids Cut", detail: "Patient, comfortable cuts for kids", price: "Ask for price" },
+  { name: "Designs", detail: "Custom line work and freehand designs", price: "Ask for price" },
+  { name: "Braids & Specialty", detail: "Specialty styling and braids", price: "Ask for price" },
 ];
 
-const gallery = [
-  { src: g1, alt: "Skin fade haircut side profile" },
-  { src: g2, alt: "Freehand hair design shaved into a fade" },
-  { src: g3, alt: "Cornrow braids with fade" },
-  { src: g4, alt: "Barbershop interior with white brick walls" },
-  { src: g5, alt: "Barbershop storefront with barber pole" },
-  { src: g6, alt: "Beard trim with straight razor" },
-  { src: g7, alt: "Kid's haircut in the barber chair" },
-  { src: g8, alt: "Low fade with textured top" },
-];
-
-const barbers = [
-  { img: barber1, name: "Barber Name", specialties: "Skin fades · Beard sculpting" },
-  { img: barber2, name: "Barber Name", specialties: "Designs · Line work" },
-  { img: barber3, name: "Barber Name", specialties: "Braids · Kids' cuts" },
-];
-
-const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#about", label: "About" },
-  { href: "#barbers", label: "Barbers" },
-  { href: "#visit", label: "Visit" },
-];
+const gallery = Array.from({ length: 8 }, (_, i) => ({
+  src: image(`gallery-${i + 1}.jpg`),
+  alt: `La Magia Barbershop work ${i + 1}`,
+}));
 
 function Index() {
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Toaster />
-
-      {/* Nav */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-surface/85 backdrop-blur-md">
-        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 md:px-6">
-          <a href="#top" className="flex min-w-0 items-center gap-3">
-            <img
-              src={logo}
+    <main className="min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
+          <a href="#home" className="flex items-center gap-3" aria-label="La Magia Barbershop home">
+            <ImageSlot
+              src={image("logo.png")}
               alt="La Magia Barbershop logo"
-              width={290}
-              height={316}
-              className="size-11 shrink-0 object-contain"
+              className="h-12 w-12 rounded-full"
+              label="Logo"
             />
-            <span className="min-w-0">
-              <span className="font-display block truncate text-2xl leading-none tracking-widest">
-                LA <span className="text-blood">MAGIA</span>
-              </span>
-              <span className="block text-[0.6rem] uppercase tracking-[0.35em] text-muted-foreground">
-                Barbershop
-              </span>
-            </span>
+            <div>
+              <p className="brand-name">La Magia</p>
+              <p className="text-sm text-muted-foreground">Barbershop · Bound Brook, NJ</p>
+            </div>
           </a>
+
           <nav className="hidden items-center gap-7 md:flex">
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="text-xs font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {l.label}
-              </a>
-            ))}
-            <Button asChild size="sm">
-              <a href="#booking">Book Now</a>
-            </Button>
+            <a className="nav-link" href="#story">Our Story</a>
+            <a className="nav-link" href="#services">Services</a>
+            <a className="nav-link" href="#work">Our Work</a>
+            <a className="nav-link" href="#visit">Visit</a>
+            <a className="primary-button" href="#booking">Book Appointment</a>
           </nav>
+
           <button
-            aria-label="Toggle menu"
-            onClick={() => setOpen((v) => !v)}
-            className="shrink-0 rounded-sm border border-border p-2 md:hidden"
+            className="rounded-lg border border-border p-2 md:hidden"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle navigation"
           >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-        {open && (
-          <nav className="border-t border-border/60 bg-surface px-4 pb-4 md:hidden">
-            {navLinks.map((l) => (
+
+        {menuOpen && (
+          <nav className="border-t border-border bg-background px-4 py-4 md:hidden">
+            {["story", "services", "work", "visit", "booking"].map((section) => (
               <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="block border-b border-border/40 py-3 text-sm font-semibold uppercase tracking-widest"
+                key={section}
+                href={`#${section}`}
+                className="block py-3 text-base capitalize"
+                onClick={() => setMenuOpen(false)}
               >
-                {l.label}
+                {section === "booking" ? "Book Appointment" : section === "work" ? "Our Work" : section === "story" ? "Our Story" : section}
               </a>
             ))}
-            <Button asChild className="mt-4 w-full">
-              <a href="#booking" onClick={() => setOpen(false)}>
-                Book Now
-              </a>
-            </Button>
           </nav>
         )}
       </header>
 
-      {/* Hero */}
-      <section id="top" className="relative flex min-h-[92svh] items-end overflow-hidden">
-        <img
-          src={hero}
-          alt="Client with a fresh skin fade in the barber chair at La Magia Barbershop"
-          width={1536}
-          height={1152}
-          className="absolute inset-0 size-full object-cover object-[38%_center] md:object-[60%_center]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/30" />
-        <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-32 md:px-6 md:pb-24">
-          <img
-            src={logo}
-            alt="La Magia Barbershop badge logo"
-            width={290}
-            height={316}
-            className="animate-rise mb-6 size-28 object-contain drop-shadow-2xl md:size-36"
-          />
-          <p className="animate-rise text-xs font-semibold uppercase tracking-[0.45em] text-blood">
-            Bound Brook · New Jersey
-          </p>
-          <h1 className="animate-rise mt-4 text-5xl leading-[0.92] sm:text-7xl md:text-8xl">
-            Fresh Cuts.
-            <br />
-            Sharp Style.
-            <br />
-            <span className="text-blood">La Magia.</span>
-          </h1>
-          <p className="animate-rise mt-5 max-w-md text-base text-muted-foreground">
-            Precision fades, custom designs and clean lines. Appointments and walk-ins
-            welcome.
-          </p>
-          <div className="animate-rise mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="h-14 text-base font-bold uppercase tracking-widest">
-              <a href="#booking">Book an Appointment</a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-14 text-base font-bold uppercase tracking-widest"
-            >
-              <a href={PHONE_HREF}>
-                <Phone className="size-5" /> Call Now
+      <section id="home" className="welcome-section">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
+          <div className="max-w-xl">
+            <p className="eyebrow">Your neighborhood barbershop</p>
+            <h1 className="mt-4 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+              Come in comfortable.<br />Leave looking fresh.
+            </h1>
+            <p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">
+              Good cuts, good conversation, and a shop that feels like home. La Magia welcomes appointments and walk-ins in the heart of Bound Brook.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a className="primary-button large-button" href="#booking">Book an Appointment</a>
+              <a className="secondary-button large-button" href={PHONE_HREF}>
+                <Phone className="h-4 w-4" /> {PHONE}
               </a>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Services */}
-      <section id="services" className="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-        <SectionHead kicker="What we do" title="Services" />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <div
-              key={s.name}
-              className="group rounded-md border border-border bg-card p-6 transition-colors hover:border-blood"
-            >
-              <s.icon className="size-7 text-blood" />
-              <h3 className="mt-4 text-2xl">{s.name}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-              <p className="mt-5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Contact for pricing
-              </p>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* Gallery */}
-      <section id="gallery" className="bg-surface py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <SectionHead kicker="The work" title="Gallery" />
-          <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {gallery.map((g, i) => (
-              <div
-                key={g.alt}
-                className={`overflow-hidden rounded-md border border-border ${
-                  i === 0 || i === 5 ? "col-span-2 row-span-2" : ""
-                }`}
-              >
-                <img
-                  src={g.src}
-                  alt={g.alt}
-                  loading="lazy"
-                  width={900}
-                  height={900}
-                  className="size-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-            ))}
+          <div className="photo-frame aspect-[4/3]">
+            <ImageSlot
+              src={image("hero.jpg")}
+              alt="Inside La Magia Barbershop"
+              className="h-full w-full"
+              label="Upload hero.jpg"
+            />
           </div>
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="mx-auto max-w-3xl px-4 py-20 text-center md:px-6 md:py-28">
-        <SectionHead kicker="Our shop" title="About La Magia" centered />
-        <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
-          La Magia Barbershop is a neighborhood shop on East Street in Bound Brook, New
-          Jersey. Our barbers focus on clean fades, detailed line work and styles built
-          around each client — from a simple taper to full freehand designs and braids.
-        </p>
-        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-          The chair is open to everyone. Book ahead if you want a specific barber or time,
-          or stop by as a walk-in and we'll take care of you.
-        </p>
-        <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2 text-xs font-semibold uppercase tracking-widest">
-          <Clock className="size-4 text-blood" /> Appointments &amp; Walk-Ins
+      <section id="story" className="section-pad">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 md:grid-cols-[0.9fr_1.1fr] md:px-6">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="photo-frame aspect-[4/5]">
+              <ImageSlot src={image("gallery-4.jpg")} alt="La Magia shop interior" className="h-full w-full" label="gallery-4.jpg" />
+            </div>
+            <div className="photo-frame mt-10 aspect-[4/5]">
+              <ImageSlot src={image("gallery-5.jpg")} alt="La Magia storefront" className="h-full w-full" label="gallery-5.jpg" />
+            </div>
+          </div>
+
+          <div className="self-center">
+            <p className="eyebrow">Our story</p>
+            <h2 className="section-title">A local shop built around the people in the chair.</h2>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              La Magia Barbershop serves Bound Brook with a simple idea: every person who walks in should feel welcome, listened to, and confident when they leave.
+            </p>
+            <p className="mt-4 text-lg leading-8 text-muted-foreground">
+              Whether you come in for a regular cut, a fade, beard work, a design, or a new style, the focus is on taking the time to get it right. Appointments are available, and walk-ins are always welcome.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-5 text-sm">
+              <span className="story-note">Appointments welcome</span>
+              <span className="story-note">Walk-ins welcome</span>
+              <span className="story-note">All ages</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Barbers */}
-      <section id="barbers" className="bg-surface py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <SectionHead kicker="The team" title="Our Barbers" />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {barbers.map((b, i) => (
-              <div
-                key={i}
-                className="overflow-hidden rounded-md border border-border bg-card"
-              >
-                <img
-                  src={b.img}
-                  alt={`Barber at La Magia Barbershop`}
-                  loading="lazy"
-                  width={900}
-                  height={900}
-                  className="aspect-square w-full object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-2xl">{b.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{b.specialties}</p>
-                  <Button asChild variant="outline" className="mt-5 w-full">
-                    <a href="#booking">Request This Barber</a>
-                  </Button>
+      <section id="services" className="section-pad bg-surface">
+        <div className="mx-auto max-w-5xl px-4 md:px-6">
+          <div className="text-center">
+            <p className="eyebrow">Services & pricing</p>
+            <h2 className="section-title mx-auto max-w-2xl">Straightforward services. No complicated menu.</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Prices can be added whenever the shop is ready. For now, customers can call or request an appointment for the exact service they want.
+            </p>
+          </div>
+
+          <div className="mt-10 divide-y divide-border rounded-2xl border border-border bg-card px-5 sm:px-8">
+            {services.map((service) => (
+              <div key={service.name} className="grid gap-2 py-5 sm:grid-cols-[1fr_auto] sm:items-center">
+                <div>
+                  <h3 className="text-xl font-semibold">{service.name}</h3>
+                  <p className="mt-1 text-muted-foreground">{service.detail}</p>
                 </div>
+                <p className="font-medium text-primary">{service.price}</p>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-center text-xs uppercase tracking-widest text-muted-foreground">
-            Barber names and photos are placeholders — send us the real details anytime.
-          </p>
         </div>
       </section>
 
-      {/* Visit */}
-      <section id="visit" className="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-        <SectionHead kicker="Find us" title="Visit Us" />
-        <div className="mt-10 grid gap-8 md:grid-cols-2">
-          <div className="space-y-6">
-            <InfoRow icon={MapPin} label="Address" value={ADDRESS} />
-            <InfoRow icon={Phone} label="Phone" value={PHONE} href={PHONE_HREF} />
-            <InfoRow
-              icon={Instagram}
-              label="Instagram"
-              value="@lamagia.barbershop"
-              href={IG}
-            />
-            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
-              <Button asChild size="lg" className="h-13">
-                <a href={MAPS} target="_blank" rel="noreferrer">
-                  Get Directions
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-13">
-                <a href={PHONE_HREF}>Call the Shop</a>
-              </Button>
-              <Button asChild size="lg" variant="ghost" className="h-13">
-                <a href={IG} target="_blank" rel="noreferrer">
-                  View Instagram
-                </a>
-              </Button>
+      <section id="work" className="section-pad">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="eyebrow">Our work</p>
+              <h2 className="section-title">A few cuts from the shop.</h2>
+            </div>
+            <a href={IG} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-medium text-primary">
+              <Instagram className="h-4 w-4" /> See more on Instagram
+            </a>
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+            {gallery.map((item, index) => (
+              <div key={item.src} className={`photo-frame ${index === 0 || index === 5 ? "col-span-2 aspect-[4/3]" : "aspect-square"}`}>
+                <ImageSlot src={item.src} alt={item.alt} className="h-full w-full" label={`gallery-${index + 1}.jpg`} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="booking" className="section-pad bg-primary text-primary-foreground">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[0.85fr_1.15fr] md:px-6">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] opacity-75">Request an appointment</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Tell us what you need and when you want to come in.</h2>
+            <p className="mt-5 max-w-md text-lg leading-8 opacity-85">
+              This form is a request, not an automatic confirmation. The shop can follow up by phone to confirm the time.
+            </p>
+            <div className="mt-8 space-y-3 text-base">
+              <a href={PHONE_HREF} className="flex items-center gap-3"><Phone className="h-5 w-5" /> {PHONE}</a>
+              <p className="flex items-start gap-3"><MapPin className="mt-0.5 h-5 w-5 shrink-0" /> {ADDRESS}</p>
             </div>
           </div>
-          <div className="overflow-hidden rounded-md border border-border">
-            <iframe
-              title="Map to La Magia Barbershop"
-              src="https://www.google.com/maps?q=5+East+St,+Bound+Brook,+NJ+08805&output=embed"
-              className="h-72 w-full md:h-full"
-              loading="lazy"
-            />
+
+          <form
+            className="rounded-2xl bg-background p-6 text-foreground sm:p-8"
+            onSubmit={(e) => {
+              e.preventDefault();
+              alert("Appointment request form is ready to connect to email or a booking service.");
+            }}
+          >
+            <div className="grid gap-5 sm:grid-cols-2">
+              <FormField label="Name"><input required name="name" placeholder="Your name" /></FormField>
+              <FormField label="Phone"><input required name="phone" type="tel" placeholder="(555) 555-5555" /></FormField>
+              <FormField label="Service">
+                <select name="service" defaultValue="">
+                  <option value="" disabled>Select a service</option>
+                  {services.map((service) => <option key={service.name}>{service.name}</option>)}
+                </select>
+              </FormField>
+              <FormField label="Preferred date"><input name="date" type="date" /></FormField>
+            </div>
+            <div className="mt-5">
+              <FormField label="Preferred time"><input name="time" type="time" /></FormField>
+            </div>
+            <div className="mt-5">
+              <FormField label="Anything we should know?"><textarea name="notes" rows={4} placeholder="Barber preference, style, questions..." /></FormField>
+            </div>
+            <button type="submit" className="primary-button mt-6 w-full justify-center py-3.5">Request Appointment</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="visit" className="section-pad">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-2 md:px-6">
+          <div>
+            <p className="eyebrow">Come by the shop</p>
+            <h2 className="section-title">La Magia Barbershop</h2>
+            <div className="mt-7 space-y-5 text-lg">
+              <p className="flex items-start gap-3"><MapPin className="mt-1 h-5 w-5 shrink-0 text-primary" /> {ADDRESS}</p>
+              <a href={PHONE_HREF} className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary" /> {PHONE}</a>
+              <a href={IG} target="_blank" rel="noreferrer" className="flex items-center gap-3"><Instagram className="h-5 w-5 text-primary" /> @lamagia.barbershop</a>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a className="primary-button" href={MAPS} target="_blank" rel="noreferrer">Get Directions</a>
+              <a className="secondary-button" href={PHONE_HREF}>Call the Shop</a>
+            </div>
+          </div>
+
+          <div className="photo-frame aspect-[4/3]">
+            <ImageSlot src={image("gallery-5.jpg")} alt="La Magia Barbershop storefront" className="h-full w-full" label="gallery-5.jpg" />
           </div>
         </div>
       </section>
 
-      {/* Booking */}
-      <section id="booking" className="bg-surface py-20 md:py-28">
-        <div className="mx-auto max-w-3xl px-4 md:px-6">
-          <SectionHead kicker="Get in the chair" title="Request a Booking" centered />
-          <p className="mt-4 text-center text-sm text-muted-foreground">
-            Send a request and we'll confirm by phone. Requests are not confirmed
-            appointments — for the fastest response, call{" "}
-            <a href={PHONE_HREF} className="text-blood underline">
-              {PHONE}
-            </a>
-            .
-          </p>
-          <BookingForm />
+      <footer className="border-t border-border py-8">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-6">
+          <p>© {new Date().getFullYear()} La Magia Barbershop. Bound Brook, New Jersey.</p>
+          <div className="flex gap-5">
+            <a href={IG} target="_blank" rel="noreferrer">Instagram</a>
+            <a href={PHONE_HREF}>Call</a>
+          </div>
         </div>
-      </section>
-
-      <footer className="border-t border-border py-10 text-center">
-        <p className="font-display text-2xl tracking-widest">
-          LA <span className="text-blood">MAGIA</span> BARBERSHOP
-        </p>
-        <p className="mt-2 text-sm text-muted-foreground">{ADDRESS}</p>
-        <p className="text-sm text-muted-foreground">{PHONE}</p>
       </footer>
-
-      {/* Mobile sticky actions */}
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-border bg-surface/95 p-3 backdrop-blur md:hidden">
-        <Button asChild size="lg" className="h-12 font-bold uppercase tracking-wider">
-          <a href="#booking">Book</a>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          variant="outline"
-          className="h-12 font-bold uppercase tracking-wider"
-        >
-          <a href={PHONE_HREF}>
-            <Phone className="size-4" /> Call
-          </a>
-        </Button>
-      </div>
-      <div className="h-20 md:hidden" />
-    </div>
+    </main>
   );
 }
 
-function SectionHead({
-  kicker,
-  title,
-  centered,
-}: {
-  kicker: string;
-  title: string;
-  centered?: boolean;
-}) {
+function ImageSlot({ src, alt, className, label }: { src: string; alt: string; className?: string; label: string }) {
   return (
-    <div className={centered ? "text-center" : ""}>
-      <p className="text-xs font-semibold uppercase tracking-[0.4em] text-blood">
-        {kicker}
-      </p>
-      <h2 className="mt-3 text-4xl sm:text-5xl md:text-6xl">{title}</h2>
-      <div className={`hairline mt-4 w-24 ${centered ? "mx-auto" : ""}`} />
-    </div>
-  );
-}
-
-function InfoRow({
-  icon: Icon,
-  label,
-  value,
-  href,
-}: {
-  icon: typeof MapPin;
-  label: string;
-  value: string;
-  href?: string;
-}) {
-  return (
-    <div className="flex min-w-0 items-start gap-4">
-      <Icon className="mt-1 size-5 shrink-0 text-blood" />
-      <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          {label}
-        </p>
-        {href ? (
-          <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="text-lg hover:text-blood">
-            {value}
-          </a>
-        ) : (
-          <p className="text-lg">{value}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function BookingForm() {
-  const [sending, setSending] = useState(false);
-
-  return (
-    <form
-      className="mt-10 grid gap-5 rounded-md border border-border bg-card p-6 sm:grid-cols-2 md:p-8"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSending(true);
-        setTimeout(() => {
-          setSending(false);
-          (e.target as HTMLFormElement).reset();
-          toast.success("Request sent", {
-            description: "We'll call you back to confirm your appointment.",
-          });
-        }, 600);
-      }}
-    >
-      <Field id="name" label="Name" required placeholder="Your name" maxLength={100} />
-      <Field
-        id="phone"
-        label="Phone number"
-        required
-        type="tel"
-        placeholder="(555) 555-5555"
-        maxLength={20}
+    <div className={`image-slot ${className ?? ""}`}>
+      <div className="image-placeholder"><Scissors className="h-6 w-6" /><span>{label}</span></div>
+      <img
+        src={src}
+        alt={alt}
+        className="absolute inset-0 h-full w-full object-cover"
+        onError={(event) => { event.currentTarget.style.display = "none"; }}
       />
-      <Field id="barber" label="Preferred barber" placeholder="No preference" maxLength={100} />
-      <Field id="service" label="Requested service" placeholder="Skin fade" maxLength={100} />
-      <Field id="date" label="Preferred date" type="date" />
-      <Field id="time" label="Preferred time" type="time" />
-      <div className="sm:col-span-2">
-        <Label htmlFor="notes" className="text-xs uppercase tracking-widest">
-          Additional notes
-        </Label>
-        <Textarea
-          id="notes"
-          name="notes"
-          maxLength={1000}
-          rows={4}
-          className="mt-2"
-          placeholder="Anything we should know?"
-        />
-      </div>
-      <Button
-        type="submit"
-        size="lg"
-        disabled={sending}
-        className="h-14 text-base font-bold uppercase tracking-widest sm:col-span-2"
-      >
-        {sending ? "Sending…" : "Send Booking Request"}
-      </Button>
-    </form>
+    </div>
   );
 }
 
-function Field({
-  id,
-  label,
-  ...props
-}: { id: string; label: string } & React.ComponentProps<typeof Input>) {
+function FormField({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div>
-      <Label htmlFor={id} className="text-xs uppercase tracking-widest">
-        {label}
-      </Label>
-      <Input id={id} name={id} className="mt-2" {...props} />
-    </div>
+    <label className="form-field">
+      <span>{label}</span>
+      {children}
+    </label>
   );
 }
