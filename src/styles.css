@@ -38,26 +38,26 @@
 
 :root {
   --radius: 0.65rem;
-  --background: oklch(0.13 0.025 285);
-  --foreground: oklch(0.96 0.008 270);
-  --card: oklch(0.18 0.035 285);
-  --card-foreground: oklch(0.96 0.008 270);
-  --popover: oklch(0.18 0.035 285);
-  --popover-foreground: oklch(0.96 0.008 270);
-  --primary: oklch(0.60 0.18 292);
+  --background: oklch(0.105 0.035 300);
+  --foreground: oklch(0.97 0.006 280);
+  --card: oklch(0.15 0.045 300);
+  --card-foreground: oklch(0.97 0.006 280);
+  --popover: oklch(0.15 0.045 300);
+  --popover-foreground: oklch(0.97 0.006 280);
+  --primary: oklch(0.54 0.22 28);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.21 0.045 270);
-  --secondary-foreground: oklch(0.96 0.008 270);
-  --muted: oklch(0.20 0.035 280);
-  --muted-foreground: oklch(0.72 0.025 270);
-  --accent: oklch(0.58 0.15 245);
+  --secondary: oklch(0.19 0.055 292);
+  --secondary-foreground: oklch(0.97 0.006 280);
+  --muted: oklch(0.18 0.04 295);
+  --muted-foreground: oklch(0.74 0.02 282);
+  --accent: oklch(0.58 0.16 250);
   --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.56 0.2 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.72 0.06 275 / 18%);
-  --input: oklch(0.72 0.06 275 / 20%);
-  --ring: oklch(0.60 0.18 292);
-  --surface: oklch(0.105 0.025 285);
+  --border: oklch(0.78 0.055 290 / 16%);
+  --input: oklch(0.78 0.055 290 / 20%);
+  --ring: oklch(0.58 0.16 250);
+  --surface: oklch(0.085 0.03 300);
 }
 
 @layer base {
@@ -66,8 +66,8 @@
   body {
     margin: 0;
     background:
-      radial-gradient(circle at 80% 18%, rgba(42, 82, 150, .13), transparent 30rem),
-      radial-gradient(circle at 12% 55%, rgba(104, 48, 139, .12), transparent 34rem),
+      radial-gradient(circle at 88% 20%, rgba(38, 78, 150, .10), transparent 28rem),
+      radial-gradient(circle at 10% 62%, rgba(80, 28, 105, .15), transparent 34rem),
       var(--color-background);
     color: var(--color-foreground);
     font-family: Arial, Helvetica, sans-serif;
@@ -78,65 +78,159 @@
 
 @layer components {
   .brand-name { font-size: 1.25rem; line-height: 1; font-weight: 800; letter-spacing: -0.02em; }
-  .nav-link { font-size: 0.88rem; font-weight: 600; color: var(--color-muted-foreground); transition: color 160ms ease; }
-  .nav-link:hover { color: var(--color-foreground); }
+  .nav-link { font-size: 0.88rem; font-weight: 650; color: var(--color-muted-foreground); transition: color 160ms ease; }
+  .nav-link:hover { color: white; }
 
   .primary-button, .secondary-button {
-    display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.55rem; padding: 0.7rem 1.05rem;
-    font-size: 0.9rem; font-weight: 700; transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.55rem;
+    padding: 0.7rem 1.05rem;
+    font-size: 0.9rem;
+    font-weight: 750;
+    transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
   }
-  .primary-button { background: linear-gradient(135deg, oklch(0.59 0.19 292), oklch(0.54 0.16 275)); color: white; }
-  .secondary-button { border: 1px solid var(--color-border); background: rgba(18,18,30,.72); color: var(--color-foreground); }
+  .primary-button {
+    background: linear-gradient(135deg, oklch(0.56 0.23 29), oklch(0.49 0.20 25));
+    color: white;
+  }
+  .secondary-button {
+    border: 1px solid rgba(255,255,255,.28);
+    background: rgba(255,255,255,.07);
+    color: white;
+  }
   .primary-button:hover, .secondary-button:hover { transform: translateY(-1px); }
-  .large-button { padding: 0.82rem 1.2rem; }
+  .large-button { padding: 0.84rem 1.2rem; }
 
   .welcome-section {
     position: relative;
     isolation: isolate;
+    min-height: 34rem;
+    display: flex;
+    align-items: center;
     background-image:
-      linear-gradient(90deg, rgba(8,7,15,.93) 0%, rgba(18,10,32,.82) 46%, rgba(12,16,38,.62) 100%),
-      url('/la-magia-branding/images/hero-bg.jpg');
+      linear-gradient(90deg, rgba(8, 5, 16, .94) 0%, rgba(21, 8, 37, .87) 38%, rgba(18, 9, 32, .72) 63%, rgba(7, 12, 30, .58) 100%),
+      linear-gradient(180deg, rgba(255,255,255,.02), rgba(73,19,96,.12)),
+      url('/la-magia-branding/images/hero.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center 38%;
+    background-repeat: no-repeat;
+    border-top: 3px solid oklch(0.54 0.22 28);
+    border-bottom: 1px solid rgba(255,255,255,.10);
   }
-  .welcome-section::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(180deg, transparent 60%, rgba(8,7,15,.72));
-    pointer-events: none;
+  .welcome-section > div {
+    width: 100%;
+    grid-template-columns: minmax(0, 43rem) !important;
+    justify-content: start;
+    padding-top: 6.5rem !important;
+    padding-bottom: 6.5rem !important;
   }
+  .welcome-section .photo-frame { display: none; }
+  .welcome-section h1 {
+    max-width: 42rem;
+    color: white;
+    text-shadow: 0 2px 20px rgba(0,0,0,.35);
+  }
+  .welcome-section p.text-muted-foreground { color: rgba(255,255,255,.78); }
 
   .section-pad { padding-top: 4.75rem; padding-bottom: 4.75rem; }
-  .eyebrow { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.72 0.15 285); }
-  .section-title { margin-top: 0.55rem; max-width: 42rem; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; letter-spacing: -0.025em; font-weight: 750; }
+  .eyebrow {
+    font-size: 0.74rem;
+    font-weight: 750;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: oklch(0.72 0.16 292);
+  }
+  .section-title {
+    margin-top: 0.55rem;
+    max-width: 42rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    font-weight: 760;
+    color: white;
+  }
 
   #story {
     position: relative;
     background:
-      linear-gradient(90deg, rgba(11,9,20,.96), rgba(27,15,45,.88), rgba(10,18,39,.92)),
+      linear-gradient(90deg, rgba(10,6,18,.96), rgba(35,13,49,.86), rgba(11,14,31,.92)),
       url('/la-magia-branding/images/story-bg.jpg') center/cover;
+    border-top: 1px solid rgba(255,255,255,.06);
   }
-  #services { background: linear-gradient(135deg, rgba(23,13,38,.98), rgba(10,18,37,.98)); }
-  #work { background: linear-gradient(180deg, rgba(12,11,23,.98), rgba(18,12,31,.98)); }
-  #booking { background: linear-gradient(135deg, oklch(0.34 0.13 294), oklch(0.27 0.11 257)); }
-  #visit { background: linear-gradient(180deg, rgba(10,14,29,.98), rgba(16,10,27,.98)); }
+  #services {
+    background:
+      linear-gradient(135deg, rgba(28,10,43,.99), rgba(12,12,27,.99));
+  }
+  #work {
+    background:
+      radial-gradient(circle at 80% 20%, rgba(38,82,150,.12), transparent 26rem),
+      linear-gradient(180deg, rgba(12,9,22,.99), rgba(24,10,34,.99));
+  }
+  #booking {
+    background:
+      linear-gradient(135deg, rgba(61,18,74,.98), rgba(30,14,56,.98) 55%, rgba(20,37,73,.95));
+    border-top: 3px solid oklch(0.54 0.22 28);
+  }
+  #visit {
+    background:
+      linear-gradient(180deg, rgba(10,12,25,.99), rgba(18,8,29,.99));
+  }
+
+  #services::before,
+  #work::before,
+  #visit::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg,
+      oklch(0.54 0.22 28) 0 33%,
+      rgba(255,255,255,.92) 33% 66%,
+      oklch(0.58 0.16 250) 66% 100%);
+    opacity: .72;
+  }
 
   .story-note { font-size: 0.86rem; color: var(--color-muted-foreground); }
-  .photo-frame { overflow: hidden; border-radius: 0.85rem; background: var(--color-muted); box-shadow: 0 14px 34px rgba(0,0,0,.2); }
+  .photo-frame {
+    overflow: hidden;
+    border-radius: 0.85rem;
+    background: var(--color-muted);
+    box-shadow: 0 14px 34px rgba(0,0,0,.24);
+  }
   .image-slot { position: relative; overflow: hidden; background: var(--color-muted); }
   .image-placeholder {
-    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 0.65rem; padding: 1rem; text-align: center; font-size: 0.8rem; color: var(--color-muted-foreground);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-muted-foreground);
   }
 
   .form-field { display: grid; gap: 0.42rem; font-size: 0.84rem; font-weight: 700; }
-  .form-field input, .form-field select, .form-field textarea {
-    width: 100%; border: 1px solid var(--color-border); border-radius: 0.6rem; background: rgba(13,12,24,.92);
-    padding: 0.78rem 0.86rem; color: var(--color-foreground); font-size: 0.96rem; font-weight: 400; outline: none;
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 0.6rem;
+    background: rgba(12,10,21,.94);
+    padding: 0.78rem 0.86rem;
+    color: var(--color-foreground);
+    font-size: 0.96rem;
+    font-weight: 400;
+    outline: none;
   }
-  .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-    border-color: var(--color-primary); box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 14%, transparent);
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-accent) 14%, transparent);
   }
 }
