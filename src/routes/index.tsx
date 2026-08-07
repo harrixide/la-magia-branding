@@ -110,12 +110,21 @@ function Index() {
       {/* Nav */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-surface/85 backdrop-blur-md">
         <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 md:px-6">
-          <a href="#top" className="min-w-0">
-            <span className="font-display block truncate text-2xl leading-none tracking-widest">
-              LA <span className="text-blood">MAGIA</span>
-            </span>
-            <span className="block text-[0.6rem] uppercase tracking-[0.35em] text-muted-foreground">
-              Barbershop
+          <a href="#top" className="flex min-w-0 items-center gap-3">
+            <img
+              src={logo}
+              alt="La Magia Barbershop logo"
+              width={290}
+              height={316}
+              className="size-11 shrink-0 object-contain"
+            />
+            <span className="min-w-0">
+              <span className="font-display block truncate text-2xl leading-none tracking-widest">
+                LA <span className="text-blood">MAGIA</span>
+              </span>
+              <span className="block text-[0.6rem] uppercase tracking-[0.35em] text-muted-foreground">
+                Barbershop
+              </span>
             </span>
           </a>
           <nav className="hidden items-center gap-7 md:flex">
