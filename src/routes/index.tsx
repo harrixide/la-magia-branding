@@ -167,7 +167,7 @@ function Index() {
           alt="Client with a fresh skin fade in the barber chair at La Magia Barbershop"
           width={1536}
           height={1152}
-          className="absolute inset-0 size-full object-cover object-[65%_center]"
+          className="absolute inset-0 size-full object-cover object-[38%_center] md:object-[60%_center]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/30" />
         <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-32 md:px-6 md:pb-24">
