@@ -181,6 +181,13 @@ function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/30" />
         <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-32 md:px-6 md:pb-24">
+          <img
+            src={logo}
+            alt="La Magia Barbershop badge logo"
+            width={290}
+            height={316}
+            className="animate-rise mb-6 size-28 object-contain drop-shadow-2xl md:size-36"
+          />
           <p className="animate-rise text-xs font-semibold uppercase tracking-[0.45em] text-blood">
             Bound Brook · New Jersey
           </p>
