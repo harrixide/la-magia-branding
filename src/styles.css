@@ -108,15 +108,56 @@
   .eyebrow { font-size: 0.74rem; font-weight: 750; letter-spacing: 0.10em; text-transform: uppercase; color: oklch(0.72 0.16 292); }
   .section-title { margin-top: 0.65rem; max-width: 42rem; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; letter-spacing: -0.025em; font-weight: 760; color: white; }
 
+  /* Full-width section bands. Upload section-1.jpg through section-5.jpg in public/images to replace the current look. */
   #story {
     position: relative;
-    background: linear-gradient(90deg, rgba(10,6,18,.96), rgba(35,13,49,.86), rgba(11,14,31,.92)), url('/la-magia-branding/images/story-bg.jpg') center/cover;
+    background-image:
+      linear-gradient(90deg, rgba(10,6,18,.96), rgba(35,13,49,.86), rgba(11,14,31,.92)),
+      url('/la-magia-branding/images/section-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(18,9,30,.98);
     border-top: 1px solid rgba(255,255,255,.06);
   }
-  #services { background: linear-gradient(135deg, rgba(28,10,43,.99), rgba(12,12,27,.99)); }
-  #work { background: radial-gradient(circle at 80% 20%, rgba(38,82,150,.12), transparent 26rem), linear-gradient(180deg, rgba(12,9,22,.99), rgba(24,10,34,.99)); }
-  #booking { background: linear-gradient(135deg, rgba(61,18,74,.98), rgba(30,14,56,.98) 55%, rgba(20,37,73,.95)); border-top: 3px solid oklch(0.54 0.22 28); }
-  #visit { background: linear-gradient(180deg, rgba(10,12,25,.99), rgba(18,8,29,.99)); }
+  #services {
+    background-image:
+      linear-gradient(135deg, rgba(28,10,43,.93), rgba(12,12,27,.94)),
+      url('/la-magia-branding/images/section-2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(18,10,29,.99);
+  }
+  #work {
+    background-image:
+      radial-gradient(circle at 80% 20%, rgba(38,82,150,.12), transparent 26rem),
+      linear-gradient(180deg, rgba(12,9,22,.92), rgba(24,10,34,.93)),
+      url('/la-magia-branding/images/section-3.jpg');
+    background-size: cover, cover, cover;
+    background-position: center, center, center;
+    background-repeat: no-repeat;
+    background-color: rgba(18,10,28,.99);
+  }
+  #booking {
+    background-image:
+      linear-gradient(135deg, rgba(61,18,74,.90), rgba(30,14,56,.91) 55%, rgba(20,37,73,.90)),
+      url('/la-magia-branding/images/section-4.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(37,15,58,.98);
+    border-top: 3px solid oklch(0.54 0.22 28);
+  }
+  #visit {
+    background-image:
+      linear-gradient(180deg, rgba(10,12,25,.92), rgba(18,8,29,.93)),
+      url('/la-magia-branding/images/section-5.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(14,10,26,.99);
+  }
 
   #services::before, #work::before, #visit::before {
     content: ""; display: block; height: 3px;
@@ -124,11 +165,9 @@
     opacity: .72;
   }
 
-  /* The barber-pole divider is inside these sections, so compensate for it with real breathing room. */
   #services.section-pad, #work.section-pad, #visit.section-pad { padding-top: 0; }
   #services::before, #work::before, #visit::before { margin-bottom: 5.25rem; }
 
-  /* Keep section content aligned to the same visual rhythm throughout the page. */
   #story > div, #services > div, #work > div, #booking > div, #visit > div { position: relative; }
   #story p + h2, #services p + h2, #work p + h2, #visit p + h2 { margin-top: 0.65rem; }
 
